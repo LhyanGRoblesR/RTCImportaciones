@@ -11,6 +11,10 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    public $timestamps = false;
+    protected $table = 't_users';
+    protected $primaryKey = 'id_users';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -18,8 +22,18 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'phone',
+        'id_document_types',
+        'document',
+        'id_users_roles',
         'email',
         'password',
+        'ruc',
+        'country',
+        'department',
+        'province',
+        'district',
+        'address'
     ];
 
     /**
@@ -29,7 +43,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     /**
@@ -40,8 +53,11 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function setPasswordAttribute($value){
+        $this->attributes['password'] = bcrypt($value);
     }
 }
