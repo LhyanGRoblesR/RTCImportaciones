@@ -1,5 +1,5 @@
 
-@extends('layouts.app-master')
+@extends('layouts.menu')
 
 @section('content')
 
