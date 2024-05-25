@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class RegisterRequest extends FormRequest
 {
@@ -12,6 +13,16 @@ class RegisterRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'token' => Str::random(20),
+        ]);
     }
 
     /**
@@ -36,7 +47,8 @@ class RegisterRequest extends FormRequest
             'department' => 'required',
             'province' => 'required',
             'district' => 'required',
-            'address' => 'required'
+            'address' => 'required',
+            'token' => 'required'
         ];
     }
 
@@ -66,6 +78,7 @@ class RegisterRequest extends FormRequest
             'province.required' => 'La provincia es obligatoria.',
             'district.required' => 'El distrito es obligatorio.',
             'address.required' => 'La dirección es obligatoria.',
+            'token.required' => 'Hubo un error al generar el token de verificación.',
         ];
     }
 }

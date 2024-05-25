@@ -7,10 +7,10 @@
         <div class="border border-black rounded py-5 px-4 mt-5" style="width: 500px; background-color:rgb(255, 255, 255)">
             <h2 class="mb-4 text-center">Recuperar contraseña</h2>
             @include('layouts.messages')
-            <form action="/login" method="POST">
+            <form action="/rememberPassword" method="POST">
                 @csrf
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
                     <label for="email">Correo electrónico</label>
                 </div>
 

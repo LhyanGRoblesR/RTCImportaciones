@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use App\Mail\VerifiedEmail;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class ToolsController extends Controller
 {
@@ -29,4 +32,15 @@ class ToolsController extends Controller
 
         }
     }
+
+    public function testing(Request $request){
+
+        $baseUrl = $request->getSchemeAndHttpHost();
+        $token = Str::random(15);
+        $url = $baseUrl."/verifiedEmail?token={$token}";
+        // Enviar el correo
+        Mail::to('robleslhyan@gmail.com')->send(new VerifiedEmail($url));
+    }
+
+
 }

@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Autenticación</title>
     <link rel="stylesheet" href="{{url('assets/css/bootstrap.min.css')}}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
 </head>
 <body style="height: 100vh; background-color:rgb(201, 201, 201)">
     <main class="container" style="height: 100vh">

@@ -24,7 +24,11 @@ class LoginController extends Controller
 
         $user = Auth::getProvider()->retrieveByCredentials($credentials);
 
-        Auth::login($user);
+        if($user->email_verified == 1){
+            Auth::login($user);
+        }else{
+            return redirect()->to('/login')->withErrors('El correo no se encuentra verificado.');
+        }
 
         return redirect('/home');
     }

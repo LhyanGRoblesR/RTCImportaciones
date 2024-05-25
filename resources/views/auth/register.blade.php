@@ -12,14 +12,15 @@
             <div class="row">
                 <div class="col-md-6 ">
                     <div class="input-group mb-3">
-                        <select class="form-select" id="id_document_types" name="id_document_types" style="max-width: 120px">
+                        <select class="form-select" id="id_document_types" name="id_document_types" style="max-width: 100px">
                             <option value="1">DNI</option>
                             <option value="2">Veneco</option>
                         </select>
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="document" name="document" placeholder="document"  />
+                            <input type="text" class="form-control" id="document" name="document" placeholder="document"  value="{{old('document')}}"  />
                             <label for="document">Documento de identidad</label>
                         </div>
+                        <button type="button" class="btn btn-outline-success" id="btn-validate-document"><i class="bi bi-check2"></i></button>
                     </div>
                 </div>
 
@@ -59,9 +60,12 @@
                 </div>
 
                 <div class="col-md-6 ">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="ruc" name="ruc" placeholder="ruc"  value="{{old('ruc')}}">
-                        <label for="ruc">RUC</label>
+                    <div class="input-group mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="ruc" name="ruc" placeholder="ruc"  value="{{old('ruc')}}">
+                            <label for="ruc">RUC</label>
+                        </div>
+                        <button type="button" class="btn btn-outline-success" id="btn-validate-ruc"><i class="bi bi-check2"></i></button>
                     </div>
                 </div>
 
@@ -143,7 +147,10 @@ $(document).ready(function(){
     var documentInput = $('#document');
     var rucInput = $('#ruc');
 
-    documentInput.on('blur', function() {
+    var validateRucButton = $('#btn-validate-ruc');
+    var validateDocumentButton = $('#btn-validate-document');
+
+    validateDocumentButton.on('click', function() {
         validateDocument('dni');
     });
 
@@ -158,7 +165,7 @@ $(document).ready(function(){
         nameInput.prop('readonly', false);
     });
 
-    rucInput.on('blur', function() {
+    validateRucButton.on('click', function() {
         validateDocument('ruc');
     });
 
@@ -190,6 +197,7 @@ $(document).ready(function(){
                     nameInput.val(response.data.nombre_completo);
                     nameInput.prop('readonly', true);
                 }else{
+                    alert('No se encontro informacion del documento.');
                     nameInput.val('');
                     nameInput.prop('readonly', false);
                 }
@@ -217,6 +225,7 @@ $(document).ready(function(){
                     addressInput.val(response.data.direccion);
                     addressInput.prop('readonly', true);
                 }else{
+                    alert('No se encontro informacion del ruc.');
                     business_name.val('');
                     business_name.prop('readonly', false);
                     countryInput.val('');
