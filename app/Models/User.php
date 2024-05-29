@@ -35,7 +35,8 @@ class User extends Authenticatable
         'department',
         'province',
         'district',
-        'address'
+        'address',
+        'timestamp_created','timestamp_modified'
     ];
 
     /**

@@ -26,11 +26,18 @@ class LoginController extends Controller
 
         if($user->email_verified == 1){
             Auth::login($user);
+
+            if($user->id_users_roles == 1){
+                return redirect('/');
+            }else{
+                return redirect('/home');
+            }
+
+
         }else{
             return redirect()->to('/login')->withErrors('El correo no se encuentra verificado.');
         }
 
-        return redirect('/home');
     }
 
 

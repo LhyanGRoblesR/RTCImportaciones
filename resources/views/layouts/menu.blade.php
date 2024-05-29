@@ -18,43 +18,43 @@
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
-                        <a href="#" class="nav-link active" aria-current="page">
+                        <a href="/home" class="nav-link {{ Request::is('home') ? 'active' : 'text-white' }}">
                             <i class="bi bi-house me-2"></i>
                             Inicio
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link text-white">
+                        <a href="/categories" class="nav-link {{ Request::is('categories') ? 'active' : 'text-white' }}">
                             <i class="bi bi-tag me-2"></i>
                             Categorias
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link text-white">
+                        <a href="/products" class="nav-link {{ Request::is('products') ? 'active' : 'text-white' }}">
                             <i class="bi bi-box me-2"></i>
                             Productos
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link text-white">
+                        <a href="/users" class="nav-link {{ Request::is('users') ? 'active' : 'text-white' }}">
                             <i class="bi bi-people me-2"></i>
                             Usuarios
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link text-white">
+                        <a href="/contacts" class="nav-link {{ Request::is('contacts') ? 'active' : 'text-white' }}">
                             <i class="bi bi-person-lines-fill me-2"></i>
                             Contactos
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link text-white">
+                        <a href="/blogs" class="nav-link {{ Request::is('blogs') ? 'active' : 'text-white' }}">
                             <i class="bi bi-book me-2"></i>
                             Blog
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link text-white">
+                        <a href="/quotes" class="nav-link {{ Request::is('quotes') ? 'active' : 'text-white' }}">
                             <i class="bi bi-coin me-2"></i>
                             Cotizaciones
                         </a>
@@ -82,8 +82,8 @@
                         </div>
                     </nav>
                 </div>
-                <div class="container mt-3">
-                    xxxx
+                <div class="container mt-2">
+                    @yield('content')
                 </div>
             </div>
         </div>
