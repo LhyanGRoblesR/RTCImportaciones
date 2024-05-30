@@ -11,6 +11,7 @@ use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\WebController;
+use App\Http\Controllers\ProductsController;
 
 
 Route::get('/laravel', function () {
@@ -48,6 +49,12 @@ Route::get('/users', [UsersController::class, 'show']);
 Route::put('/users', [UsersController::class, 'update']);
 Route::delete('/users', [UsersController::class, 'delete']);
 
+Route::put('/users/id_users_roles', [UsersController::class, 'updateIdUsersRoles']);
+
+Route::get('/products', [ProductsController::class, 'show']);
+Route::post('/products', [ProductsController::class, 'store']);
+Route::put('/products', [ProductsController::class, 'update']);
+Route::delete('/products', [ProductsController::class, 'delete']);
 
 
 Route::get('/', [WebController::class, 'show']);

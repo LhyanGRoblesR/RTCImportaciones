@@ -3,11 +3,9 @@
 
 @section('content')
 
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item active h2" aria-current="page">Usuarios</li>
-        </ol>
-    </nav>
+    <div class="text-center">
+        <span class="h2" aria-current="page">Usuarios</span>
+    </div>
 
     <div class="mt-3">
         @include('layouts.messages')
@@ -28,7 +26,7 @@
                         <div class="col-md-12 ">
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="search" name="search" placeholder="search" value="{{$search}}">
-                                <label for="category">Nombre / Documento / Email / RUC / Celular</label>
+                                <label for="search">Nombre / Documento / Email / RUC / Celular</label>
                             </div>
                         </div>
                     </div>
@@ -122,7 +120,7 @@
                     <h1 class="modal-title fs-5" id="user-edit-label">Ver usuario</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="/users" method="POST">
+                <form action="/users/id_users_roles" method="POST">
                     @method('PUT')
                     @csrf
                     <div class="modal-body">
@@ -172,22 +170,23 @@
                             </div>
 
                             <div class="col-md-12 ">
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Open this select menu</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
+
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="id_users_roles">Selecciona nuevo rol:</label>
+                                    <select class="form-select " aria-label="Default select example" id="id_users_roles" name="id_users_roles" placeholder="user_rol">
+                                        <option value="1">Usuario (Sin permisos)</option>
+                                        <option value="2">Trabajador (Permisos limitados)</option>
+                                        <option value="3">Administrador (Permisos para todo)</option>
+                                    </select>
+                                  </div>
+
+
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <div class="w-100 d-flex justify-content-between">
-                            <div>
-                                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="submit" class="btn btn-dark">Editar</button>
-                            </div>
-                        </div>
+                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-dark">Editar</button>
                     </div>
                 </form>
             </div>

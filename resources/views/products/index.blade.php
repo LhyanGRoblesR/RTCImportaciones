@@ -4,7 +4,7 @@
 @section('content')
 
     <div class="text-center">
-        <span class="h2" aria-current="page">Usuarios</span>
+        <span class="h2" aria-current="page">Productos</span>
     </div>
 
     <div class="mt-3">
@@ -22,8 +22,8 @@
             <div class="accordion-body">
                 <div class="d-flex justify-content-between ">
                     <div>
-                        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#category-create">
-                            Crear categoria
+                        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#product-create">
+                            Crear producto
                           </button>
                     </div>
                 </div>
@@ -39,15 +39,15 @@
               Buscador
             </button>
           </h3>
-          <div id="categories-search" class="accordion-collapse collapse {{(isset($category) && $category !== '' ? 'show' : '')}}" data-bs-parent="#accordionExample">
+          <div id="categories-search" class="accordion-collapse collapse {{(isset($search) && $search !== '' ? 'show' : '')}}" data-bs-parent="#accordionExample">
             <form action="/categories" method="GET">
                 <div class="accordion-body">
 
                     <div class="row">
                         <div class="col-md-12 ">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="category" name="category" placeholder="category" value="{{$category}}">
-                                <label for="category">Nombre de categoria</label>
+                                <input type="text" class="form-control" id="search" name="search" placeholder="search" value="{{$search}}">
+                                <label for="search">Producto / Descripcion / Categoria </label>
                             </div>
                         </div>
                     </div>
@@ -79,6 +79,11 @@
                                 <tr>
                                     <th scope="col">ID</th>
                                     <th scope="col">Categoria</th>
+                                    <th scope="col">Producto</th>
+                                    <th scope="col">Foto</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Descripcion</th>
+                                    <th scope="col">Activo</th>
                                     <th scope="col">Usuario de creacion</th>
                                     <th scope="col">Usuario de modificación</th>
                                     <th scope="col">Fecha de creacion</th>
@@ -89,13 +94,18 @@
                             <tbody class="text-nowrap">
                                 @foreach($data as $k)
                                     <tr>
-                                        <th scope="row">{{$k->id_categories}}</th>
+                                        <th scope="row">{{$k->id_products}}</th>
                                         <td>{{$k->category}}</td>
+                                        <td>{{$k->product}}</td>
+                                        <td>{{$k->photo_url}}</td>
+                                        <td>{{$k->price}}</td>
+                                        <td>{{$k->description}}</td>
+                                        <td>{{$k->active}}</td>
                                         <td>{{$k->name_created}}</td>
                                         <td>{{$k->name_modified}}</td>
                                         <td>{{$k->timestamp_created}}</td>
                                         <td>{{$k->timestamp_modified}}</td>
-                                        <td class="text-center"><button type="submit" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#category-edit" data-bs-category="{{$k->category}}" data-bs-id_categories="{{$k->id_categories}}">Ver</button></td>
+                                        <td class="text-center"><button type="submit" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#product-edit" data-bs-product="{{$k->product}}" data-bs-id_products="{{$k->id_products}}">Ver</button></td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -114,21 +124,21 @@
         </div>
     @endif
 
-    <div class="modal fade" id="category-create" tabindex="-1" aria-labelledby="category-create-label" aria-hidden="true">
+    <div class="modal fade" id="product-create" tabindex="-1" aria-labelledby="product-create-label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="category-create-label">Crear categoria</h1>
+                    <h1 class="modal-title fs-5" id="product-create-label">Crear producto</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="/categories" method="POST">
+                <form action="/products" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12 ">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="category" name="category" placeholder="category">
-                                    <label for="category">Nombre de categoria</label>
+                                    <input type="text" class="form-control" id="product" name="product" placeholder="product">
+                                    <label for="product">Nombre de categoria</label>
                                 </div>
                             </div>
                         </div>

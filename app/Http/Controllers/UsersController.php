@@ -41,4 +41,26 @@ class UsersController extends Controller
 
         return view('users.index', compact('data', 'search'));
     }
+
+    public function updateIdUsersRoles(Request $request){
+        $id_users = $request->id_users;
+        $id_users_roles = $request->id_users_roles;
+        $id_users_modified = Auth::user()->id_users;
+
+        $user = User::where('id_users', $id_users)->first();
+
+        if(isset($user)){
+
+            User::where('id_users', $id_users)
+            ->update([
+                'id_users_roles' => $id_users_roles
+            ]);
+
+            return redirect('/users')->with('success', 'Usuario actualizado con exito.');
+        }else{
+            return redirect('/users')->withErrors('Usuario no encontrado. No se pudo actualizar.');
+        }
+    }
+
+
 }
