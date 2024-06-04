@@ -48,7 +48,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/blogs" class="nav-link {{ Request::is('blogs') ? 'active' : 'text-white' }}">
+                        <a href="/blog" class="nav-link {{ Request::is('blog') ? 'active' : 'text-white' }}">
                             <i class="bi bi-book me-2"></i>
                             Blog
                         </a>
@@ -72,6 +72,7 @@
                                             {{auth()->user()->email ?? auth()->user()->name}}
                                         </a>
                                         <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="/">Ir a la web</a></li>
                                             <li><a class="dropdown-item" href="#">Mi cuenta</a></li>
                                             <li><hr class="dropdown-divider"></li>
                                             <li><a class="dropdown-item" href="/logout">Cerrar sesión</a></li>

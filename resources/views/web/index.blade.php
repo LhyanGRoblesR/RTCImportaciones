@@ -65,7 +65,7 @@
         <div class="content">
             <h3>Los mejores accesorios para tu vehículo</h3>
             <p>Por compras mayores a S/. 300.00, el delivery es gratis. ¿Qué esperas?</p>
-            <a href="catalogo.php" class="btn">Ver Catálogo de Productos</a>
+            <a href="/catalogo" class="btn">Ver Catálogo de Productos</a>
         </div>
     </section>
 
@@ -176,23 +176,16 @@
         <h1 class="heading"><span>Productos</span></h1>
 
         <div class="box-container">
-            <?php /*foreach ($resultado as $row) {*/ ?>
-                <div class="box">
-                    <?php
-                    /*$imagenData = $row['imagen'];
-
-                    $imagenBase64 = base64_encode($imagenData);
-
-                    $imagenSrc = 'data:image/jpeg;base64,' . $imagenBase64;
-                    */?>
-                    <img src="<?php /*echo $imagenSrc;*/ ?>" alt="">
-                    <h3><?php /*echo $row['nombre'];*/ ?></h3>
-                    <div class="price">S/. <?php /*echo $row['precio'];*/ ?></div>
-                </div>
-            <?php /*}*/ ?>
+            @foreach ($products as $product)
+            <div class="box">
+                <img src="{{$product->photo_url}}" alt="Imagen{{$product->id_products}}">
+                <h3>{{$product->product}}</h3>
+                <div class="price">S/. {{$product->price}}</div>
+            </div>
+            @endforeach
         </div>
 
-        <p align="right"><a href="catalogo.php" class="btn">Ver productos</a></p>
+        <p align="right"><a href="/catalogo" class="btn">Ver productos</a></p>
     </section>
 
     <!--Productos section fin-->
@@ -250,104 +243,45 @@
                 <h4>Área de Ventas</h4>
             </div>
 
-            <form id="formulario" method="post">
-                <h3>Formulario de contacto:</h3>
-                <div class="inputBox">
-                    <span class="fas fa-user"></span>
-                    <input id="nombre" name="Nombre_Completo" type="text" placeholder="Nombre Completo o Razón Social" required minlength="10" maxlength="250">
-                </div>
-                <div class="inputBox">
-                    <span class="fas fa-user"></span>
-                    <input id="dni" name="DNI" type="number" placeholder="DNI / RUC" required max="99999999999">
-                </div>
-                <div class="inputBox">
-                    <select id="departamento" name="Departamento" onchange="cambia()" class="select-css" required>
-                        <option value=""> Seleccione Departamento </option>
-                        <option value="Amazonas">Amazonas</option>
-                        <option value="Ancash">Ancash</option>
-                        <option value="Apurímac">Apurímac</option>
-                        <option value="Arequipa">Arequipa</option>
-                        <option value="Ayacucho">Ayacucho</option>
-                        <option value="Cajamarca">Cajamarca</option>
-                        <option value="Callao">Callao</option>
-                        <option value="Cuzco">Cuzco </option>
-                        <option value="Huancavelica">Huancavelica</option>
-                        <option value="Huánuco">Huánuco</option>
-                        <option value="Ica">Ica</option>
-                        <option value="Junín">Junín</option>
-                        <option value="La_Libertad">La Libertad</option>
-                        <option value="Lambayeque">Lambayeque</option>
-                        <option value="Lima">Lima</option>
-                        <option value="Loreto">Loreto</option>
-                        <option value="Madre_de_Dios">Madre de Dios</option>
-                        <option value="Moquegua">Moquegua</option>
-                        <option value="Pasco">Pasco</option>
-                        <option value="Piura">Piura</option>
-                        <option value="Puno">Puno</option>
-                        <option value="San_Martín">San Martín</option>
-                        <option value="Tacna">Tacna</option>
-                        <option value="Tumbes">Tumbes</option>
-                        <option value="Ucayali">Ucayali</option>
-                    </select>
-                </div>
-                <div class="inputBox">
-                    <select id="provincia" class="select-css" name="Provincia" required onchange="cambiaDistrito()">
-                        <option> Seleccione la Provincia </option>
-                    </select>
-                </div>
-                <div class="inputBox">
-                    <select id="distrito" class="select-css" name="Distrito" required>
-                        <option> Seleccione el Distrito </option>
-                    </select>
-                </div>
+            <div id="formulario" style="padding-top: 10rem">
 
-                <div class="inputBox">
-                    <span class="fas fa-search"></span>
-                    <input id="direccion" name="Direccion" type="text" placeholder="Dirección de Local (max. 250 caracteres)" required minlength="10" maxlength="250">
-                </div>
+                @auth
+                    <form action="/contacts" method="POST">
+                        @csrf
+                        <h4>Dejanos un mensaje y nos pondremos en contacto contigo:</h4>
+                        @if(Session::get('success', false))
+                            <?php $data = Session::get('success'); ?>
+                            @if (is_array($data))
+                                @foreach ($data as $msg)
+                                    <div class="messages-web">
+                                        <i class="fa fa-check"></i>
+                                        <h4 style="color: white">{{ $msg }}</h4>
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="messages-web" role="alert" style="">
+                                    <i class="fa fa-check"></i>
+                                    <h4 style="color: white">{{ $data }}</h4>
+                                </div>
+                            @endif
+                        @endif
+                        <div class="inputBox">
+                            <span class="fas fa-user"></span>
+                            <textarea name="messages" id="messages" rows="9" required></textarea>
+                        </div>
+                        <p align="right"><input type="submit" value="Contactar ahora" class="btn"></p>
+                    </form>
+                @endauth
 
-                <div class="inputBox">
-                    <span class="fas fa-envelope"></span>
-                    <input id="correo" name="Correo" type="email" placeholder="Correo electrónico" required>
-                </div>
-                <div class="inputBox">
-                    <span class="fas fa-phone"></span>
-                    <input id="celular" name="Celular" type="number" placeholder="Celular" required min="99999999" max="999999999999">
-                </div>
-                <p align="right"><input type="submit" value="Contacta ahora" class="btn"></p>
-            </form>
+                @guest
+                    <h4>Para contactarnos porfavor inicia sesión:</h4>
+                    <a href="/login" class="btn">Iniciar sesion</a>
+                    <h4 style="margin-top: 3rem">o registrate:</h4>
+                    <a href="/register" class="btn">Registrarse</a>
+                @endguest
 
-            <script>
-                $(document).ready(function() {
-                    $('#formulario').submit(function(event) {
-                        event.preventDefault();
+            </div>
 
-                        $.ajax({
-                            type: 'POST',
-                            url: 'php/cliente.php',
-                            data: $(this).serialize(),
-                            success: function(response) {
-                                var result = JSON.parse(response);
-                                if (result.success) {
-                                    swal({
-                                        title: "Datos registrados",
-                                        text: result.message,
-                                        icon: "success"
-                                    }).then(function() {
-                                        $('#formulario')[0].reset();
-                                    });
-                                } else {
-                                    swal({
-                                        title: "Datos incorrectos",
-                                        text: result.message,
-                                        icon: "error"
-                                    });
-                                }
-                            }
-                        });
-                    });
-                });
-            </script>
         </div>
     </section>
 
@@ -359,47 +293,23 @@
         <h1 class="heading"><span>Blogs</span></h1>
 
         <div class="box-container">
-            <div class="box">
-                <div class="image">
-                    <img src="{{asset('assets/images/LEDss.jpg')}}" alt="">
-                </div>
 
-                <div class="content">
-                    <a href="#" class="title">Nuevos productos</a>
-                    <span>by Admin / 23 junio 2023</span>
-                    <p>Se ha agregado nuevos focos LED en nuestro catálogo de productos.
-                        El Foco LED P9, es el más potente de nuestra serie LED.</p>
-                    <!--<p align="right"><a href="carritoN.html" class="btn">Ver</a></p>-->
-                </div>
-            </div>
+            @foreach ($blogs as $blog)
+                <div class="box">
+                    <div class="image">
+                        <img src="{{$blog->photo_url}}" alt="">
+                    </div>
 
-            <div class="box">
-                <div class="image">
-                    <img src="{{asset('assets/images/cuzco.jpg')}}" alt="">
+                    <div class="content">
+                        <a href="#" class="title">{{$blog->blog}}</a>
+                        <span>Por RTCAR</span>
+                        <p>{{$blog->description}}</p>
+                        <!--<p align="right"><a href="carritoN.html" class="btn">Ver</a></p>-->
+                    </div>
                 </div>
+            @endforeach
 
-                <div class="content">
-                    <a href="#" class="title">Muy pronto en Cuzco</a>
-                    <span>by Admin / 10 junio 2023</span>
-                    <p>La marca RTCAR pronto llegará a la ciudad de Cuzco con promociones y con todos
-                        los productos del catálogo disponibles.</p>
-                    <!--<p align="right"><a href="carritoN.html" class="btn">Ver</a></p>-->
-                </div>
-            </div>
-
-            <div class="box">
-                <div class="image">
-                    <img src="{{asset('assets/images/filtros.jpg')}}" alt="">
-                </div>
-
-                <div class="content">
-                    <a href="#" class="title">Llegaron los filtros</a>
-                    <span>by Admin / 01 junio 2023</span>
-                    <p>Acaba de llegar nuestra importación de filtros de aire acondicionado.
-                        Más de 30 códigos de filtros estarán disponibles a partir de mañana 2 de junio.</p>
-                    <!--<p align="right"><a href="carritoN.html" class="btn">Ver</a></p>-->
-                </div>
-            </div>
+            
         </div>
     </section>
 

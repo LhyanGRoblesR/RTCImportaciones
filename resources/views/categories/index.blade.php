@@ -4,7 +4,7 @@
 @section('content')
 
     <div class="text-center">
-        <span class="h2" aria-current="page">Usuarios</span>
+        <span class="h2" aria-current="page">Categorias</span>
     </div>
 
     <div class="mt-3">
@@ -201,12 +201,12 @@ $(document).ready(function(){
             modalInputIdCategories.val(id_categories);
 
             btnCategoryDelete.on('click', function() {
-                // if(confirm('Estas seguro de borrar')){
+                if(confirm('Estas seguro de borrar')){
                     $('input[name="_method"]').val('DELETE');
                     $('#form-category-edit-delete').submit();
-                // }else{
-                //     $('input[name="_method"]').val('PUT');
-                // }
+                }else{
+                    $('input[name="_method"]').val('PUT');
+                    }
             });
 
         });

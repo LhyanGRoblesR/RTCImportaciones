@@ -17,7 +17,7 @@ class UsersController extends Controller
 
         $data = [];
 
-        if(isset($name) && $search !== ''){
+        if(isset($search) && $search !== ''){
 
             $data = User::select('t_users.*', 't_users_roles.user_rol', 't_document_types.document_type')
             ->where('name' ,'like', '%'.$search.'%')
@@ -47,9 +47,9 @@ class UsersController extends Controller
         $id_users_roles = $request->id_users_roles;
         $id_users_modified = Auth::user()->id_users;
 
-        $user = User::where('id_users', $id_users)->first();
+        $userExists = User::where('id_users', $id_users)->first();
 
-        if(isset($user)){
+        if(isset($userExists)){
 
             User::where('id_users', $id_users)
             ->update([

@@ -26,7 +26,9 @@
 
                     <button type="submit" class="btn btn-dark w-100 mb-3">Iniciar sesión</button>
 
-                    <a href="/register" class="btn btn-outline-dark w-100">Registrarse</a>
+                    <a href="/register" class="btn btn-outline-dark w-100 mb-3">Registrarse</a>
+
+                    <a href="/" class="btn btn-outline-dark w-100">No iniciar sesión</a>
 
                 </div>
             </form>

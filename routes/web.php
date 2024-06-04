@@ -12,7 +12,9 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\ProductsController;
-
+use App\Http\Controllers\ContactsController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\QuotesController;
 
 Route::get('/laravel', function () {
     return view('welcome');
@@ -56,6 +58,18 @@ Route::post('/products', [ProductsController::class, 'store']);
 Route::put('/products', [ProductsController::class, 'update']);
 Route::delete('/products', [ProductsController::class, 'delete']);
 
+Route::get('/contacts', [ContactsController::class, 'show']);
+Route::post('/contacts', [ContactsController::class, 'store']);
+
+Route::get('/blog', [BlogController::class, 'show']);
+Route::post('/blog', [BlogController::class, 'store']);
+Route::put('/blog', [BlogController::class, 'update']);
+Route::delete('/blog', [BlogController::class, 'delete']);
+
+Route::get('/quotes', [QuotesController::class, 'show']);
+Route::post('/quotes', [QuotesController::class, 'store']);
+Route::put('/quotes', [QuotesController::class, 'update']);
+Route::delete('/quotes', [QuotesController::class, 'delete']);
 
 Route::get('/', [WebController::class, 'show']);
 

@@ -14,12 +14,12 @@
     <div class="accordion mt-3">
         <div class="accordion-item">
           <h3 class="accordion-header">
-            <button class="px-3 py-2 btn accordion-button bg-light text-muted" type="button" data-bs-toggle="collapse" data-bs-target="#categories-search" aria-expanded="true" aria-controls="categories-search">
+            <button class="px-3 py-2 btn accordion-button bg-light text-muted" type="button" data-bs-toggle="collapse" data-bs-target="#users-search" aria-expanded="true" aria-controls="users-search">
               Buscador
             </button>
           </h3>
-          <div id="categories-search" class="accordion-collapse collapse {{(isset($search) && $search !== '' ? 'show' : '')}}" data-bs-parent="#accordionExample">
-            <form action="/categories" method="GET">
+          <div id="users-search" class="accordion-collapse collapse {{(isset($search) && $search !== '' ? 'show' : '')}}" data-bs-parent="#accordionExample">
+            <form action="/users" method="GET">
                 <div class="accordion-body">
 
                     <div class="row">
@@ -33,7 +33,7 @@
                     <div class="d-flex justify-content-between ">
                         <div>
                             <button type="submit" class="btn btn-dark">Buscar</button>
-                            <a href="/categories" class="btn btn-outline-dark ms-1">Reiniciar</a>
+                            <a href="/users" class="btn btn-outline-dark ms-1">Reiniciar</a>
                         </div>
                     </div>
                 </div>
@@ -46,12 +46,12 @@
         <div class="accordion mt-3">
             <div class="accordion-item">
                 <h3 class="accordion-header">
-                    <button class="px-3 py-2 btn accordion-button bg-light text-muted" type="button" data-bs-toggle="collapse" data-bs-target="#categories-result" aria-expanded="true" aria-controls="categories-result">
+                    <button class="px-3 py-2 btn accordion-button bg-light text-muted" type="button" data-bs-toggle="collapse" data-bs-target="#users-result" aria-expanded="true" aria-controls="users-result">
                     Resultado
                     </button>
                 </h3>
 
-                <div id="categories-result" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div id="users-result" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                     <div class="table-responsive rounded-top">
                         <table class="table table-hover">
                             <thead>

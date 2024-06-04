@@ -58,13 +58,13 @@ class CategoriesController extends Controller
         $category = $request->category;
         $id_users = Auth::user()->id_users;
 
-        $category = Categories::where('id_categories', $id_categories)->first();
+        $categoryExists = Categories::where('id_categories', $id_categories)->first();
 
-        if(isset($category)){
-            Categories::where('id_categories', $id_categories)
+        if(isset($categoryExists)){
+            Categories::where('id_categories', $categoryExists->id_categories)
             ->update([
                 'category' => $category,
-                'id_users_modified' => $id_users,
+                'id_users_modified' => $id_users
             ]);
 
             return redirect('/categories')->with('success', 'Categoria actualizada con exito.');
