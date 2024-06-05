@@ -15,6 +15,8 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\QuotesController;
+use App\Http\Controllers\CatalogueController;
+
 
 Route::get('/laravel', function () {
     return view('welcome');
@@ -72,5 +74,5 @@ Route::put('/quotes', [QuotesController::class, 'update']);
 Route::delete('/quotes', [QuotesController::class, 'delete']);
 
 Route::get('/', [WebController::class, 'show']);
-
+Route::get('/catalogo', [CatalogueController::class, 'show']);
 
