@@ -309,7 +309,7 @@
                 </div>
             @endforeach
 
-            
+
         </div>
     </section>
 
@@ -370,9 +370,28 @@
 
     <!--Pie de Página fin-->
     <!--custom js file link-->
-    <script src="js/script-index.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
+<script>
+//INDEX
+let navbar = document.querySelector('.navbar');
+//let searchForm = document.querySelector('.search-form');
+
+document.querySelector('#menu-btn').onclick = () =>{
+    navbar.classList.toggle('active');
+    //searchForm.classList.remove('active');
+}
+
+/*document.querySelector('#search-btn').onclick = () =>{
+    searchForm.classList.toggle('active');
+    navbar.classList.remove('active');
+}*/
+
+window.onscroll = () =>{
+    navbar.classList.remove('active');
+    //searchForm.classList.remove('active');
+}
+</script>
 
 </html>
