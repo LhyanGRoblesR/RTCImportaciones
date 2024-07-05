@@ -42,14 +42,18 @@ class CategoriesController extends Controller
     public function store(Request $request){
         $category = $request->category;
         $id_users = Auth::user()->id_users;
+        $categoryExists = Categories::where('category', $category)->first();
+        if(empty($categoryExists)){
+            Categories::create([
+                'category' => $category,
+                'id_users_created' => $id_users,
+                'id_users_modified' => $id_users,
+            ]);
 
-        Categories::create([
-            'category' => $category,
-            'id_users_created' => $id_users,
-            'id_users_modified' => $id_users,
-        ]);
-
-        return redirect('/categories')->with('success', 'Categoria agregada con exito.');;
+            return redirect('/categories')->with('success', 'Categoria agregada con exito.');
+        }else{
+            return redirect('/categories')->withErrors('Esta categoria ya existe.');
+        }
 
     }
 
@@ -61,13 +65,21 @@ class CategoriesController extends Controller
         $categoryExists = Categories::where('id_categories', $id_categories)->first();
 
         if(isset($categoryExists)){
-            Categories::where('id_categories', $categoryExists->id_categories)
-            ->update([
-                'category' => $category,
-                'id_users_modified' => $id_users
-            ]);
+            $categoryNameExists = Categories::where([['category', $category],['id_categories', '<>', $id_categories]])->first();
+            if(empty($categoryNameExists)){
 
-            return redirect('/categories')->with('success', 'Categoria actualizada con exito.');
+                Categories::where('id_categories', $id_categories)
+                ->update([
+                    'category' => $category,
+                    'id_users_modified' => $id_users
+                ]);
+
+                return redirect('/categories')->with('success', 'Categoria actualizada con exito.');
+
+            }else{
+                return redirect('/categories')->withErrors('Esta categoria ya existe.');
+            }
+
         }else{
             return redirect('/categories')->withErrors('Categoria no encontrada. No se pudo actualizar.');
         }

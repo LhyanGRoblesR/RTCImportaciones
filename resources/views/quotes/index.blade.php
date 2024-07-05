@@ -73,17 +73,17 @@
                 </h3>
 
                 <div id="quotes-result" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                    <div class="table-responsive rounded-top">
+                    <div class="table-responsive rounded-top" style="max-height: 550px">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">Categoria</th>
-                                    <th scope="col">quoteo</th>
-                                    <th scope="col">Foto</th>
-                                    <th scope="col">Precio</th>
-                                    <th scope="col">Descripcion</th>
-                                    <th scope="col">Activo</th>
+                                    <th scope="col">Usuario</th>
+                                    <th scope="col">SubTotal</th>
+                                    <th scope="col">IGV</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Precio modificado</th>
+                                    <th scope="col">Estado</th>
                                     <th scope="col">Usuario de creacion</th>
                                     <th scope="col">Usuario de modificación</th>
                                     <th scope="col">Fecha de creacion</th>
@@ -95,12 +95,12 @@
                                 @foreach($data as $k)
                                     <tr>
                                         <th scope="row">{{$k->id_quotes}}</th>
-                                        <td>{{$k->category}}</td>
-                                        <td>{{$k->quote}}</td>
-                                        <td><img src="{{$k->photo_url}}" alt="Imagen{{$k->id_quotes}}" style="width: 100px; max-height: 100px;"></td>
-                                        <td>{{$k->price}}</td>
-                                        <td>{{$k->description}}</td>
-                                        <td>{{$k->active}}</td>
+                                        <td>{{$k->name}}</td>
+                                        <td>{{$k->brute_price}}</td>
+                                        <td>{{$k->igv}}</td>
+                                        <td>{{$k->total_price}}</td>
+                                        <td>{{$k->custom_price}}</td>
+                                        <td>{{$k->quote_status}}</td>
                                         <td>{{$k->name_created}}</td>
                                         <td>{{$k->name_modified}}</td>
                                         <td>{{$k->timestamp_created}}</td>

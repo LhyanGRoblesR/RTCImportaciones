@@ -10,12 +10,17 @@
     <!--font awesome cdn link-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!--custom css file link-->
-    <link rel="stylesheet" href="{{asset('assets/css/web.css')}}">
 
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/sweetalert/dist/sweetalert.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="{{url('assets/css/bootstrap.min.css')}}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{asset('assets/css/web.css')}}">
+
+
 </head>
 
 <body>
@@ -27,18 +32,18 @@
         </a>
 
         <nav class="navbar2">
-            <a href="#cabeceraCarrito">Inicio</a>
+            <a href="/">Inicio</a>
             <a href="#categoria">Categorías</a>
             <a href="#productos">Productos</a>
             <a href="#promociones">Promociones</a>
             @auth
-                <a href="#carrito">Carrito</a>
                 <div class="dropdown">
                     <a href="/my-account">Mi cuenta</a>
                     <div class="dropdown-content">
                         @if (auth()->user()->id_users_roles === 2 || auth()->user()->id_users_roles === 3)
                             <a href="/home">Sistema interno</a>
                         @endif
+                        <a href="/carts">Carrito</a>
                         <a href="/proximamente">Mis cotizaciones</a>
                         <a href="/logout">Cerrar sesión</a>
 
@@ -113,6 +118,8 @@
                             <p>* La garantía se aplicará después de que nuestro técnico especialista revise el producto e identifique lo sucedido.</p>
                             <p>** El vendedor le brindará videos/guías de configuración de los productos al momento de entregárselos.</p>
                             <p>*** La atención de cualquier consulta sobre el producto será por medio de llamada o whatsapp: +51 993 840 896.</p>
+                            @csrf
+                            <button type="button" class="btn btn-outline-primary liveToastBtn" onclick="addProductCart({{$product->id_products}})">Agregar al carrito</button>
                         </div>
 
                         <!-- Modificar el enlace de cierre del popup para usar el id único del contenedor -->
@@ -123,6 +130,18 @@
         </div>
 
         <p align="right"><button class="btn" id="restaurar-btn">Mostrar todos los productos</button></p>
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true"  id="liveToast"  style="background: rgb(5, 131, 0); color: white">
+                <div class="d-flex">
+                <div class="toast-body" style="font-size: 18px;">
+                    Producto agregado al carrito con exito.
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+
     </section>
 
 
@@ -212,6 +231,8 @@
     <!--custom js file link-->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="{{url('assets/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url('assets/js/jquery-3.7.1.min.js')}}"></script>
 </body>
 
 <script>
@@ -292,6 +313,36 @@ document.querySelectorAll('.promociones a').forEach(enlace => {
       filtrarProductos('todos'); // Mostrar todos los productos
       filtrarProductosPorPromocion('todos'); // Mostrar todas las promociones
   });
+
+  const toastLiveExample = document.getElementById('liveToast')
+  const toastTrigger = document.getElementsByClassName('liveToastBtn')
+
+function addProductCart(id_products) {
+    const csrfToken = getCsrfToken();
+    console.log(csrfToken);
+    $.ajax({
+        url: "/carts",
+        type: "POST", // Cambiar el tipo de solicitud si es necesario (GET, POST, etc.)
+        data: {
+            id_products: id_products,
+            _token: csrfToken
+        }, // Enviar los parámetros necesarios
+        success: function(result) {
+            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+            toastBootstrap.show();
+        },
+        error: function(xhr, status, error) {
+        // Manejo de errores
+        console.error("Error al añadir el producto al carrito:", error);
+        }
+    });
+}
+
+function getCsrfToken() {
+  const hiddenInput = document.querySelector('input[name="_token"]');
+  return hiddenInput ? hiddenInput.value : null;
+}
+
 
 
 </script>

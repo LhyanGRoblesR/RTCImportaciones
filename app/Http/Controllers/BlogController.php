@@ -52,7 +52,7 @@ class BlogController extends Controller
         $photo_url = '';
 
         if ($photo) {
-            $branch = 'https://rtc-importaciones.s3.amazonaws.com/';
+            $branch = 'https://rtcimportaciones.s3.amazonaws.com/';
             $photo_name = Str::random(13);
             $extension = $photo->getClientOriginalExtension();
             $photo_upload = Storage::disk('s3')->put('blog', $photo);
@@ -84,7 +84,7 @@ class BlogController extends Controller
         if(isset($blogExists)){
 
             if ($photo) {
-                $branch = 'https://rtc-importaciones.s3.amazonaws.com/';
+                $branch = 'https://rtcimportaciones.s3.amazonaws.com/';
                 $photo_name = Str::random(13);
                 $extension = $photo->getClientOriginalExtension();
                 $photo_upload = Storage::disk('s3')->put('blog', $photo);

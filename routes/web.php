@@ -16,6 +16,7 @@ use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\QuotesController;
 use App\Http\Controllers\CatalogueController;
+use App\Http\Controllers\QuotesCartsController;
 
 
 Route::get('/laravel', function () {
@@ -68,6 +69,11 @@ Route::post('/blog', [BlogController::class, 'store']);
 Route::put('/blog', [BlogController::class, 'update']);
 Route::delete('/blog', [BlogController::class, 'delete']);
 
+Route::get('/carts', [QuotesCartsController::class, 'show']);
+Route::put('/carts', [QuotesCartsController::class, 'update']);
+Route::post('/carts', [QuotesCartsController::class, 'store']);
+Route::delete('/carts', [QuotesCartsController::class, 'delete']);
+
 Route::get('/quotes', [QuotesController::class, 'show']);
 Route::post('/quotes', [QuotesController::class, 'store']);
 Route::put('/quotes', [QuotesController::class, 'update']);
@@ -75,4 +81,7 @@ Route::delete('/quotes', [QuotesController::class, 'delete']);
 
 Route::get('/', [WebController::class, 'show']);
 Route::get('/catalogo', [CatalogueController::class, 'show']);
+
+
+
 

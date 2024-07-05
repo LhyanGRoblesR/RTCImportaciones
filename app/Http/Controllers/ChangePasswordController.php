@@ -27,7 +27,7 @@ class ChangePasswordController extends Controller
                     'token' => NULL,
                     'password' => bcrypt($newPassword)
                 ]);
-                return redirect('/login')->with('success', 'Se verifico tu correo con exito.');
+                return redirect('/login')->with('success', 'Se actualizo la contraseña con exito.');
             }else {
                 return redirect('/changePassword?token='.$token)->withErrors('El token es incorrecto.');
             }

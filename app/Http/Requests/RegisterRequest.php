@@ -38,7 +38,6 @@ class RegisterRequest extends FormRequest
             'document' => 'required',
             'name' => 'required',
             'phone' => 'required',
-            'email' => 'required',
             'password' => 'required|min:8',
             'password_confirmation' => 'required|same:password',
             'ruc' => 'required',

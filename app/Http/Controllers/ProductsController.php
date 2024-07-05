@@ -56,26 +56,33 @@ class ProductsController extends Controller
         $id_users = Auth::user()->id_users;
         $photo_url = '';
 
-        if ($photo) {
-            $branch = 'https://rtc-importaciones.s3.amazonaws.com/';
-            $photo_name = Str::random(13);
-            $extension = $photo->getClientOriginalExtension();
-            $photo_upload = Storage::disk('s3')->put('products', $photo);
-            $photo_url = $branch.$photo_upload;
+        $productExists = Products::where('product', $product)->first();
+        if(empty($productExists)){
+
+            if ($photo) {
+                $branch = 'https://rtcimportaciones.s3.amazonaws.com/';
+                $photo_name = Str::random(13);
+                $extension = $photo->getClientOriginalExtension();
+                $photo_upload = Storage::disk('s3')->put('products', $photo);
+                $photo_url = $branch.$photo_upload;
+            }
+
+            Products::create([
+                'product' => $product,
+                'description' => $description,
+                'photo_url' => $photo_url,
+                'price' => $price,
+                'id_categories' => $id_categories,
+                'active' => 1,
+                'id_users_created' => $id_users,
+                'id_users_modified' => $id_users,
+            ]);
+
+            return redirect('/products')->with('success', 'Producto agregado con exito.');
+
+        }else{
+            return redirect('/products')->withErrors('El producto ya existe.');
         }
-
-        Products::create([
-            'product' => $product,
-            'description' => $description,
-            'photo_url' => $photo_url,
-            'price' => $price,
-            'id_categories' => $id_categories,
-            'active' => 1,
-            'id_users_created' => $id_users,
-            'id_users_modified' => $id_users,
-        ]);
-
-        return redirect('/products')->with('success', 'Producto agregado con exito.');;
 
     }
 
@@ -94,29 +101,34 @@ class ProductsController extends Controller
 
         if(isset($productExists)){
 
-            if ($photo) {
-                $branch = 'https://rtc-importaciones.s3.amazonaws.com/';
-                $photo_name = Str::random(13);
-                $extension = $photo->getClientOriginalExtension();
-                $photo_upload = Storage::disk('s3')->put('products', $photo);
-                $photo_url = $branch.$photo_upload;
+            $productNameExists = Products::where([['product', $product],['id_products', '<>',$id_products]])->first();
+            if(empty($productNameExists)){
+
+                if ($photo) {
+                    $branch = 'https://rtcimportaciones.s3.amazonaws.com/';
+                    $photo_name = Str::random(13);
+                    $extension = $photo->getClientOriginalExtension();
+                    $photo_upload = Storage::disk('s3')->put('products', $photo);
+                    $photo_url = $branch.$photo_upload;
+                }else{
+                    $photo_url = $productExists->photo_url;
+                }
+
+                Products::where('id_products', $id_products)
+                ->update([
+                    'product' => $product,
+                    'description' => $description,
+                    'photo_url' => $photo_url,
+                    'price' => $price,
+                    'id_categories' => $id_categories,
+                    'active' => $active,
+                    'id_users_modified' => $id_users,
+                ]);
+
+                return redirect('/products')->with('success', 'Producto actualizado con exito.');
             }else{
-                $photo_url = $productExists->photo_url;
+                return redirect('/products')->withErrors('El producto ya existe.');
             }
-
-            Products::where('id_products', $id_products)
-            ->update([
-                'product' => $product,
-                'description' => $description,
-                'photo_url' => $photo_url,
-                'price' => $price,
-                'id_categories' => $id_categories,
-                'active' => $active,
-                'id_users_modified' => $id_users,
-            ]);
-
-            return redirect('/products')->with('success', 'Producto actualizado con exito.');
-
         }else{
             return redirect('/products')->withErrors('Producto no encontrado. No se pudo actualizar.');
         }

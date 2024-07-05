@@ -52,7 +52,7 @@
                 </h3>
 
                 <div id="users-result" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                    <div class="table-responsive rounded-top">
+                    <div class="table-responsive rounded-top" style="max-height: 550px">
                         <table class="table table-hover">
                             <thead>
                                 <tr>

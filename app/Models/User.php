@@ -31,6 +31,7 @@ class User extends Authenticatable
         'password',
         'token',
         'ruc',
+        'business_name',
         'country',
         'department',
         'province',

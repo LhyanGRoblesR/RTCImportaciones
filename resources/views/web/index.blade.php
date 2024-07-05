@@ -40,6 +40,7 @@
                         @if (auth()->user()->id_users_roles === 2 || auth()->user()->id_users_roles === 3)
                             <a href="/home">Sistema interno</a>
                         @endif
+                        <a href="/carts">Carrito</a>
                         <a href="/proximamente">Mis cotizaciones</a>
                         <a href="/logout">Cerrar sesión</a>
 
@@ -383,10 +384,10 @@ document.querySelector('#menu-btn').onclick = () =>{
     //searchForm.classList.remove('active');
 }
 
-/*document.querySelector('#search-btn').onclick = () =>{
-    searchForm.classList.toggle('active');
-    navbar.classList.remove('active');
-}*/
+// document.querySelector('#search-btn').onclick = () =>{
+//     searchForm.classList.toggle('active');
+//     navbar.classList.remove('active');
+// }
 
 window.onscroll = () =>{
     navbar.classList.remove('active');
