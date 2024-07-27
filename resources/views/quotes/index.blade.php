@@ -11,7 +11,7 @@
         @include('layouts.messages')
     </div>
 
-    <div class="accordion">
+    {{-- <div class="accordion">
         <div class="accordion-item">
           <h3 class="accordion-header">
             <button class="px-3 py-2 btn accordion-button bg-light text-muted" type="button" data-bs-toggle="collapse" data-bs-target="#quotes-actions" aria-expanded="true" aria-controls="quotes-actions">
@@ -30,7 +30,7 @@
             </div>
           </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="accordion mt-3">
         <div class="accordion-item">
@@ -105,7 +105,13 @@
                                         <td>{{$k->name_modified}}</td>
                                         <td>{{$k->timestamp_created}}</td>
                                         <td>{{$k->timestamp_modified}}</td>
-                                        <td class="text-center"><button type="submit" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#quote-edit" data-bs-id_quotes="{{$k->id_quotes}}" data-bs-id_categories="{{$k->id_categories}}" data-bs-quote="{{$k->quote}}" data-bs-photo_url="{{$k->photo_url}}" data-bs-price="{{$k->price}}" data-bs-description="{{$k->description}}" data-bs-active="{{$k->active}}">Ver</button></td>
+
+
+
+
+                                        <td class="text-center">
+                                            <a href="/quotes/downloadpdf?id_quotes={{$k->id_quotes}}" class="btn btn btn-outline-dark btn-sm">PDF</a>
+                                            <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#quote-edit" data-bs-id_quotes="{{$k->id_quotes}}" data-bs-name="{{$k->name}}" data-bs-brute_price="{{$k->brute_price}}" data-bs-igv="{{$k->igv}}" data-bs-total_price="{{$k->total_price}}" data-bs-custom_price="{{$k->custom_price}}" data-bs-quote_status="{{$k->quote_status}}" data-bs-id_quotes_statuses="{{$k->id_quotes_statuses}}">Ver</button></td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -124,62 +130,11 @@
         </div>
     @endif
 
-    <div class="modal fade" id="quote-create" tabindex="-1" aria-labelledby="quote-create-label" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="quote-create-label">Crear cotizacion</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="/quotes" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="row">
-
-                            <div class="col-md-6 ">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="quote" name="quote" placeholder="quote">
-                                    <label for="quote">Nombre de quoteo</label>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 ">
-                                <div class="form-floating mb-3">
-                                    <input type="file" class="form-control" id="photo" name="photo" placeholder="photo">
-                                    <label for="photo">Foto</label>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 ">
-                                <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="price" name="price" placeholder="price" step="0.01">
-                                    <label for="price">Precio</label>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12 ">
-                                <div class="form-floating mb-3">
-                                    <textarea class="form-control" id="description" name="description" style="height: 100px"></textarea>
-                                    <label for="price">Descripcion del quoteo</label>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-dark">Crear</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <div class="modal fade" id="quote-edit" tabindex="-1" aria-labelledby="quote-edit-label" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="quote-edit-label">Ver quoteo</h1>
+                    <h1 class="modal-title fs-5" id="quote-edit-label">Ver cotizacion</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="/quotes" method="POST" id="form-quote-edit-delete" enctype="multipart/form-data">
@@ -189,55 +144,73 @@
                         <input type="hidden" id="id_quotes" name="id_quotes">
 
                         <div class="row">
-                            <div class="col-md-6 ">
+                            <div class="col-md-4 ">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="quote" name="quote" placeholder="quote">
-                                    <label for="quote">Nombre de quoteo</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="name" readonly>
+                                    <label for="name">Nombre del usuario</label>
                                 </div>
                             </div>
 
-                            <div class="col-md-6 ">
+                            <div class="col-md-4 ">
                                 <div class="form-floating mb-3">
-                                    <input type="file" class="form-control" id="photo" name="photo" placeholder="photo">
-                                    <label for="photo">Foto</label>
+                                    <input type="text" class="form-control" id="brute_price" name="brute_price" placeholder="brute_price" readonly>
+                                    <label for="brute_price">Precio bruto</label>
                                 </div>
                             </div>
 
-                            <div class="col-md-6 ">
+                            <div class="col-md-4 ">
                                 <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="price" name="price" placeholder="price" step="0.01">
-                                    <label for="price">Precio</label>
+                                    <input type="text" class="form-control" id="igv" name="igv" placeholder="igv"readonly>
+                                    <label for="igv">IGV</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 ">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="total_price" name="total_price" placeholder="total_price" readonly>
+                                    <label for="total_price">Precio total</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 ">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="custom_price" name="custom_price" placeholder="custom_price">
+                                    <label for="custom_price">Precio ofertado</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 ">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="quote_status" name="quote_status" placeholder="quote_status" readonly>
+                                    <label for="quote_status">Estado de cotizacion</label>
                                 </div>
                             </div>
 
                             <div class="col-md-12 ">
-                                <div class="form-floating mb-3">
-                                    <textarea class="form-control" id="description" name="description" style="height: 100px"></textarea>
-                                    <label for="price">Descripcion del quoteo</label>
+                                <div class="table-responsive rounded-top" style="max-height: 550px">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">Producto</th>
+                                                <th scope="col">Cantidad</th>
+                                                <th scope="col">Precio total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-nowrap" id="quote_products">
+                                        </tbody>
+
+                                    </table>
                                 </div>
                             </div>
 
-                            <div class="col-md-12 ">
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="active" name="active">
-                                        <option value="0">No</option>
-                                        <option value="1">Si</option>
-                                    </select>
-                                    <label for="quote">Activo</label>
-
-                                </div>
-                            </div>
-
-                            <div class="col-md-12 text-center">
-                                <img src="" alt="ImageEdit" id="photo_show" style="width: 400px; max-height: 400px;">
-                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <div class="w-100 d-flex justify-content-between">
                             <div>
-                                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal" id="btn-quote-delete">Eliminar</button>
                             </div>
+
                             <div>
                                 <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cerrar</button>
                                 <button type="submit" class="btn btn-dark">Editar</button>
@@ -255,48 +228,73 @@
 <script>
 $(document).ready(function(){
     const quoteEdit = $('#quote-edit');
-    const btnquoteDelete = $('#btn-quote-delete');
 
     if (quoteEdit.length) {
         quoteEdit.on('show.bs.modal', function(event) {
             const button = $(event.relatedTarget);
-            const quote = button.data('bs-quote');
             const id_quotes = button.data('bs-id_quotes');
-            const description = button.data('bs-description');
-            const photo_url = button.data('bs-photo_url');
-            const price = button.data('bs-price');
-            const id_categories = button.data('bs-id_categories');
-            const active = button.data('bs-active');
+            const name = button.data('bs-name');
+            const brute_price = button.data('bs-brute_price');
+            const igv = button.data('bs-igv');
+            const total_price = button.data('bs-total_price');
+            const custom_price = button.data('bs-custom_price');
+            const quote_status = button.data('bs-quote_status');
+            const id_quotes_statuses = button.data('bs-id_quotes_statuses');
 
-            const modalInputquote = quoteEdit.find('.modal-body #quote');
             const modalInputIdquotes = quoteEdit.find('.modal-body #id_quotes');
-            const modalInputDescription = quoteEdit.find('.modal-body #description');
-            const modalInputPhoto = quoteEdit.find('.modal-body #photo_show');
-            const modalInputPrice = quoteEdit.find('.modal-body #price');
-            const modalInputIdCategories = quoteEdit.find('.modal-body #id_categories');
-            const modalInputActive = quoteEdit.find('.modal-body #active');
+            const modalInputName = quoteEdit.find('.modal-body #name');
+            const modalInputBrutePrice = quoteEdit.find('.modal-body #brute_price');
+            const modalInputIgv = quoteEdit.find('.modal-body #igv');
+            const modalInputTotalPrice = quoteEdit.find('.modal-body #total_price');
+            const modalInputCustomPrice = quoteEdit.find('.modal-body #custom_price');
+            const modalInputQuoteStatus = quoteEdit.find('.modal-body #quote_status');
 
-            modalInputquote.val(quote);
             modalInputIdquotes.val(id_quotes);
-            modalInputDescription.val(description);
-            modalInputPhoto.attr('src', photo_url);
-            modalInputPrice.val(price);
-            modalInputIdCategories.val(id_categories);
-            modalInputActive.val(active);
-
-            btnquoteDelete.on('click', function() {
-                if(confirm('Estas seguro de borrar')){
-                    $('input[name="_method"]').val('DELETE');
-                    $('#form-quote-edit-delete').submit();
-                }else{
-                    $('input[name="_method"]').val('PUT');
-                }
-            });
-
+            modalInputName.val(name);
+            modalInputBrutePrice.val(brute_price);
+            modalInputIgv.val(igv);
+            modalInputTotalPrice.val(total_price);
+            modalInputCustomPrice.val(custom_price);
+            modalInputQuoteStatus.val(quote_status);
+            if(id_quotes_statuses == 3){
+                modalInputCustomPrice.attr('readonly', true)
+            }else{
+                modalInputCustomPrice.attr('readonly', false)
+            }
+            viewQuotesProducts(id_quotes);
         });
     }
 
+    function viewQuotesProducts(id_quotes) {
+        const csrfToken = getCsrfToken();
+        $.ajax({
+            url: "/quotesProducts",
+            type: "POST",
+            data: {
+                id_quotes: id_quotes,
+                _token: csrfToken
+            }, // Enviar los parámetros necesarios
+            success: function(result) {
+                result = JSON.parse(result)
+                const data = result.data;
+                console.log(data);
+                data_html = '';
+                data.map(item => {
+                    data_html += `<tr><th scope="row">${item.id_quotes_products}</th><td>${item.product}</td><td>${item.quantity}</td><td>${item.total_price}</td></tr>`;
+                })
+                $('#quote_products').html(data_html);
+            },
+            error: function(xhr, status, error) {
+            // Manejo de errores
+            console.error("Error al añadir el producto al carrito:", error);
+            }
+        });
+    }
 
+    function getCsrfToken() {
+    const hiddenInput = document.querySelector('input[name="_token"]');
+    return hiddenInput ? hiddenInput.value : null;
+    }
 
 })
 </script>

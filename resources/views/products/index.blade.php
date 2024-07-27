@@ -260,7 +260,7 @@
                     <div class="modal-footer">
                         <div class="w-100 d-flex justify-content-between">
                             <div>
-                                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal" id="btn-product-delete">Eliminar</button>
+                                {{-- <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal" id="btn-product-delete">Eliminar</button> --}}
                             </div>
                             <div>
                                 <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cerrar</button>

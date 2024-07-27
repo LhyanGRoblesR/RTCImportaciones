@@ -17,7 +17,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\QuotesController;
 use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\QuotesCartsController;
-
+use App\Http\Controllers\QuotesProductsController;
 
 Route::get('/laravel', function () {
     return view('welcome');
@@ -79,8 +79,16 @@ Route::post('/quotes', [QuotesController::class, 'store']);
 Route::put('/quotes', [QuotesController::class, 'update']);
 Route::delete('/quotes', [QuotesController::class, 'delete']);
 
+Route::get('/quotes/downloadpdf', [QuotesController::class, 'downloadPdf']);
+
+Route::post('/quotesProducts', [QuotesProductsController::class, 'show']);
+
+
+
 Route::get('/', [WebController::class, 'show']);
 Route::get('/catalogo', [CatalogueController::class, 'show']);
+Route::get('/miscotizaciones', [QuotesController::class, 'showMe']);
+
 
 
 

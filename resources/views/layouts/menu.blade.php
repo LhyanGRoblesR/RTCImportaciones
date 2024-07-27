@@ -73,7 +73,7 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li><a class="dropdown-item" href="/">Ir a la web</a></li>
-                                            <li><a class="dropdown-item" href="#">Mi cuenta</a></li>
+                                            {{-- <li><a class="dropdown-item" href="#">Mi cuenta</a></li> --}}
                                             <li><hr class="dropdown-divider"></li>
                                             <li><a class="dropdown-item" href="/logout">Cerrar sesión</a></li>
                                         </ul>
@@ -91,7 +91,7 @@
     </main>
     <script src="{{url('assets/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{url('assets/js/jquery-3.7.1.min.js')}}"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     @yield('javascript')
 </body>
 </html>

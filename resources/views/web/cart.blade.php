@@ -41,7 +41,7 @@
                         @if (auth()->user()->id_users_roles === 2 || auth()->user()->id_users_roles === 3)
                             <a href="/home">Sistema interno</a>
                         @endif
-                        <a href="/proximamente">Mis cotizaciones</a>
+                        <a href="/miscotizaciones">Mis cotizaciones</a>
                         <a href="/logout">Cerrar sesión</a>
 
                     </div>

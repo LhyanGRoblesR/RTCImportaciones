@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Log;
 use App\Mail\VerifiedEmail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Response;
+use PDF;
 
 class ToolsController extends Controller
 {
@@ -35,11 +37,20 @@ class ToolsController extends Controller
 
     public function testing(Request $request){
 
-        $baseUrl = $request->getSchemeAndHttpHost();
-        $token = Str::random(15);
-        $url = $baseUrl."/verifiedEmail?token={$token}";
-        // Enviar el correo
-        Mail::to('robleslhyan@gmail.com')->send(new VerifiedEmail($url));
+        $data = [
+            'titulo' => 'Styde.net'
+        ];
+
+        $pdf = PDF::loadView('templates.quotesPDF', $data);
+
+        // Generar el PDF
+        $pdfContent = $pdf->output();
+
+        // Crear una respuesta HTTP con encabezados para la visualización del PDF
+        return Response::make($pdfContent, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="archivo.pdf"'
+        ]);
     }
 
 

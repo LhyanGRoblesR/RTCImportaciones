@@ -75,13 +75,13 @@ class QuotesCartsController extends Controller
     public function delete(Request $request){
         $id_quotes_carts = $request->id_quotes_carts;
 
-        $quotesCartsExists = QuotesCarts::where('id_quotes_carts', $quotesCartsExists->id_quotes_carts)->first();
+        $quotesCartsExists = QuotesCarts::where('id_quotes_carts', $id_quotes_carts)->first();
 
         if(isset($quotesCartsExists)){
-            QuotesCarts::where('id_quotes_carts', $quotesCartsExists->id_quotes_carts)
+            QuotesCarts::where('id_quotes_carts', $id_quotes_carts)
             ->delete();
 
-            return redirect('/categories')->with('success', 'Producto eliminado del carrito.');
+            return redirect('/carts')->with('success', 'Producto eliminado del carrito.');
         }else{
             return redirect('/carts')->withErrors('No se encontro el producto para eliminar.');
         }

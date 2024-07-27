@@ -44,7 +44,7 @@
                             <a href="/home">Sistema interno</a>
                         @endif
                         <a href="/carts">Carrito</a>
-                        <a href="/proximamente">Mis cotizaciones</a>
+                        <a href="/miscotizaciones">Mis cotizaciones</a>
                         <a href="/logout">Cerrar sesión</a>
 
                     </div>
