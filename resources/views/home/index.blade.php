@@ -133,9 +133,9 @@
             label: 'Estado de las cotizaciones',
             data: total_quotes_statuses,
             backgroundColor: [
-            'rgb(255, 99, 132)',
+            'rgb(86, 255, 119)',
             'rgb(255, 205, 86)',
-            'rgb(86, 255, 119)'
+            'rgb(255, 99, 132)'
             ],
             hoverOffset: 4
         }]
@@ -154,7 +154,7 @@
                 data: total_quotes_day,
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
-                tension: 5
+                tension: 0.1
             }]
         }
     })

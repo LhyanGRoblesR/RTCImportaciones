@@ -58,7 +58,7 @@ class QuotesCartsController extends Controller
         $id_quotes_carts = $request->id_quotes_carts;
         $quantity = $request->quantity;
 
-        $quotesCartsExists = QuotesCarts::where('id_quotes_carts', $quotesCartsExists->id_quotes_carts)->first();
+        $quotesCartsExists = QuotesCarts::where('id_quotes_carts', $id_quotes_carts)->first();
 
         if(isset($quotesCartsExists)){
             QuotesCarts::where('id_quotes_carts', $quotesCartsExists->id_quotes_carts)

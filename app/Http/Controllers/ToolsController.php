@@ -37,20 +37,7 @@ class ToolsController extends Controller
 
     public function testing(Request $request){
 
-        $data = [
-            'titulo' => 'Styde.net'
-        ];
-
-        $pdf = PDF::loadView('templates.quotesPDF', $data);
-
-        // Generar el PDF
-        $pdfContent = $pdf->output();
-
-        // Crear una respuesta HTTP con encabezados para la visualización del PDF
-        return Response::make($pdfContent, 200, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="archivo.pdf"'
-        ]);
+        echo bcrypt('jorge');
     }
 
 

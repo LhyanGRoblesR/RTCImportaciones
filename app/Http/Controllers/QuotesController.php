@@ -87,6 +87,7 @@ class QuotesController extends Controller
 
     public function update(Request $request){
         $id_quotes = $request->id_quotes;
+        $id_quotes_statuses = $request->id_quotes_statuses;
         $id_users = Auth::user()->id_users;
 
         $quotes = Quotes::where('id_quotes',$id_quotes)->first();
@@ -95,7 +96,7 @@ class QuotesController extends Controller
 
             $quotes = Quotes::where('id_quotes',$id_quotes)
             ->update([
-                'id_quotes_statuses' => 2,
+                'id_quotes_statuses' => $id_quotes_statuses,
                 'custom_price' => $request->custom_price,
                 'id_users_modified' => $id_users
             ]);

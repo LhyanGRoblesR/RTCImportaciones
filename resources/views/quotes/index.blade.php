@@ -142,6 +142,7 @@
                     @csrf
                     <div class="modal-body">
                         <input type="hidden" id="id_quotes" name="id_quotes">
+                        <input type="hidden" id="id_quotes_statuses" name="id_quotes_statuses" value="2">
 
                         <div class="row">
                             <div class="col-md-4 ">
@@ -209,8 +210,8 @@
                     <div class="modal-footer">
                         <div class="w-100 d-flex justify-content-between">
                             <div>
+                                <button type="button" class="btn btn-dark" id="payment_quotes">Pasar a estado pagado</button>
                             </div>
-
                             <div>
                                 <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cerrar</button>
                                 <button type="submit" class="btn btn-dark">Editar</button>
@@ -228,6 +229,7 @@
 <script>
 $(document).ready(function(){
     const quoteEdit = $('#quote-edit');
+    const btnQuotePayment = $('#payment_quotes');
 
     if (quoteEdit.length) {
         quoteEdit.on('show.bs.modal', function(event) {
@@ -262,6 +264,16 @@ $(document).ready(function(){
                 modalInputCustomPrice.attr('readonly', false)
             }
             viewQuotesProducts(id_quotes);
+
+            btnQuotePayment.on('click', function() {
+                if(confirm('¿Estas seguro de pasar la cotizacion a pagada?')){
+                    $('#id_quotes_statuses').val(3);
+                    $('#form-quote-edit-delete').submit();
+                }else{
+                    $('#id_quotes_statuses').val(2);
+                }
+            });
+
         });
     }
 

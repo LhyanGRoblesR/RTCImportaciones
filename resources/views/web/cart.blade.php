@@ -93,7 +93,7 @@
                                                             @csrf
                                                             @method('PUT')
                                                             <input type="hidden" name="id_quotes_carts" id="id_quotes_carts" value="{{$product->id_quotes_carts}}">
-                                                            <select class="form-select form-select-lg" name="quantity" id="quantity" style="max-width: 100px;">
+                                                            <select class="form-select form-select-lg" name="quantity" id="quantity" style="max-width: 100px;" onchange="changeQuantity({{$product->id_quotes_carts}})">
                                                                 @for ($i = 1; $i < 10; $i++)
                                                                     <option value="{{$i}}" {{$i==$product->quantity ? 'selected' : ''}}>{{$i}}</option>
                                                                 @endfor
@@ -232,6 +232,11 @@ function getCsrfToken() {
   const hiddenInput = document.querySelector('input[name="_token"]');
   return hiddenInput ? hiddenInput.value : null;
 }
+
+function changeQuantity(id_quotes_carts){
+    document.getElementById('formUpdateQuantity'+id_quotes_carts).submit();
+}
+
 
 
 
